@@ -199,19 +199,14 @@ class MyTubeSuggestionsListScreen(Screen):
 				self.suggestlist = []
 				for suggestion in suggestions_tree.findall("CompleteSuggestion"):
 					name = None
-					numresults = None
 					for subelement in suggestion:
 						if subelement.attrib.has_key('data'):
 							name = subelement.attrib['data'].encode("UTF-8")
-						if subelement.attrib.has_key('int'):
-							numresults = subelement.attrib['int']
-						if name and numresults:
-							self.suggestlist.append((name, numresults ))
+						if name:
+							self.suggestlist.append(name)
 				if len(self.suggestlist):
-					self.suggestlist.sort(key=lambda x: int(x[1]))
-					self.suggestlist.reverse()
 					for entry in self.suggestlist:
-						self.list.append((entry[0], entry[1] + _(" Results") ))
+						self.list.append((entry, ''))
 					self["suggestionslist"].setList(self.list)
 					self["suggestionslist"].setIndex(0)
 		else:

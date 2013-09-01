@@ -223,14 +223,13 @@ class GoogleSuggestions():
 		self.prepQuerry = "/complete/search?output=toolbar&client=youtube&xml=true&ds=yt&"
 		if self.hl is not None:
 			self.prepQuerry = self.prepQuerry + "hl=" + self.hl + "&"
-		self.prepQuerry = self.prepQuerry + "jsonp=self.gotSuggestions&q="
+		self.prepQuerry = self.prepQuerry + "jsonp=self.getSuggestions&q="
 		print "[MyTube - GoogleSuggestions] prepareQuery:",self.prepQuerry
 
 	def getSuggestions(self, queryString):
 		self.prepareQuery()
 		if queryString is not "":
 			query = self.prepQuerry + quote(queryString)
-			self.conn = HTTPConnection("google.com")
 			try:
 				self.conn = HTTPConnection("google.com")
 				self.conn.request("GET", query, "", {"Accept-Encoding": "UTF-8"})
